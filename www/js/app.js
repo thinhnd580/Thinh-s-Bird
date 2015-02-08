@@ -45,7 +45,10 @@ app.run(function($ionicPlatform) {
             url: '/order',
             templateUrl: 'templates/order.html'
         })
-  
+  .state('menu', {
+            url: '/menu',
+            templateUrl: 'templates/menu.html'
+        })
 
   // if none of the above states are matched, use this as the fallback
   
