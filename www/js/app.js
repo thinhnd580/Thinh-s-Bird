@@ -21,6 +21,12 @@ sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
             controller: 'OrderController',
             templateUrl: 'templates/order.html'
         })
+                        .state('order.tab1', {
+                            url: '/orderTab1',
+                            //controller: 'OrderTab1Controller',
+                            templateUrl: 'templates/order-tab1.html'
+                        })
+
         .state('menu', {
             url: '/menu',
             controller: 'MenuController',

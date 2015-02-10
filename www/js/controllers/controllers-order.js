@@ -26,8 +26,20 @@ angular.module('MainApp.controllers.order', [])
             // The animation we want to use for the modal entrance
             animation: 'slide-in-up'
         });
-
-      
+//         $ionicModal.config(['$stateProvider', '$urlRouterProvider',
+//     function($stateProvider, $urlRouterProvider) {
+//     // Ionic uses AngularUI Router which uses the concept of states
+//     // Learn more here: https://github.com/angular-ui/ui-router
+//     // Set up the various states which the app can be in.
+//     // Each state's controller can be found in controllers.js
+//     $stateProvider
+//         .state('order.tab1', {
+//                             url: '/orderTab1',
+//                             controller: 'OrderTab1Controller',
+//                             templateUrl: 'templates/order-tab1.html'
+//                         })
+//       }
+// ]);
         $scope.openModal = function() {
             console.log('Opening Modal');
             $scope.modal.show();
@@ -35,4 +47,5 @@ angular.module('MainApp.controllers.order', [])
         $scope.closeModal = function(){
             $scope.modal.hide();
         }
+        
     });

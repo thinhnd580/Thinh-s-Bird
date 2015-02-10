@@ -1,8 +1,37 @@
+
+
 <div class="modal">
-	<header class="bar bar-header bar-positive">
- 		 <h1 class="title">List</h1>
-	</header>
-	<ion-content has-header="true" padding="true">
- 		 <button class="button" ng-click="closeModal()">Close Modal</button>
-	</ion-content>
+	
+<div class="bar bar-header bar-dark">
+		  <button class="button icon-left ion-chevron-left button-clear button-balanced" ng-click="closeModal()"></button>
+		  <h1 class="title">List Menu</h1>
+		  <button class="button button-balanced"ng-click="closeModal()" >Done</button>
+		  
+</div>
+
+<ion-tabs class="tabs-icon-top tabs-positive">
+
+  <ion-tab title="Main foods" icon-on="ion-ios7-filing" icon-off="ion-ios7-filing-outline" >
+  	<ion-content has-header="true">
+  		<ion-list>
+            <ion-item ng-repeat="item in list" ng-click="selectedFood(item.link)" class="item item-icon-left" >
+                <i ng-class="item.iconClass"></i>
+                {{item.text}}
+            </ion-item>
+        </ion-list>
+ 	 </ion-content>
+  
+    <!-- Tab 1 content -->
+  </ion-tab>
+
+  <ion-tab title="Wait foods" icon-on="ion-ios7-clock" icon-off="ion-ios7-clock-outline">
+    <!-- Tab 2 content -->
+  </ion-tab>
+
+  <ion-tab title="Drinks" icon-on="ion-ios7-gear" icon-off="ion-ios7-gear-outline">
+    <!-- Tab 3 content -->
+  </ion-tab>
+
+</ion-tabs>
+	
 </div>
