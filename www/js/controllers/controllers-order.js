@@ -1,10 +1,11 @@
 angular.module('MainApp.controllers.order', [])
 
-	.controller('OrderController', function ($scope,$ionicModal, MenuService) {
-        
+	.controller('OrderController', function ($scope,$ionicModal,$http, MenuService) {
+        $scope.people = [];
 
+    
         $scope.navTitle = MenuService.get(1).text;
-
+        
         $scope.leftButtons = [{
             type: 'button-icon icon ion-navicon',
             tap: function(e) {
@@ -41,8 +42,10 @@ angular.module('MainApp.controllers.order', [])
 //       }
 // ]);
         $scope.openModal = function() {
+            
             console.log('Opening Modal');
             $scope.modal.show();
+            
         };
         $scope.closeModal = function(){
             $scope.modal.hide();

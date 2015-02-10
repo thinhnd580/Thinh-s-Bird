@@ -26,22 +26,3 @@ angular.module('MainApp.services', [])
   };
 });
 
-.factory('OrderService', function() {
-
-  var orderItems = [
-      { text: 'Shit', iconClass: 'icon ion-home'},
-      { text: 'Shits', iconClass: 'icon ion-document-text'},
-      { text: 'Piece of shit', iconClass: 'icon ion-clipboard'},
-      { text: '2 Pieces of shit', iconClass: 'icon ion-star'}
-  ];
-  
-  return {
-    all: function() {
-      return orderItems;
-    },
-
-    get: function(index){
-      return orderItems[index];
-    },
-  };
-});
