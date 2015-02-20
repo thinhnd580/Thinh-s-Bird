@@ -44,10 +44,10 @@
 							 <div class="item item-text-wrap" style="height: 300px">
 							  	<ion-content >
 							    <ion-list>
-							    <ion-item ng-repeat="Dessert in Desserts" ng-click="selectDish(dish)">
+							    <ion-item ng-repeat="dish in Desserts" ng-click="selectDish(dish)">
 							    	<a class="selected-item item-content">
-										{{Dessert.name}}
-										{{Dessert.price | currency : Currency}}
+										{{dish.name}}
+										{{dish.price | currency : Currency}}
 									</a>
 								</ion-item>
 								<!-- <div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
@@ -66,10 +66,10 @@
 							 <div class="item item-text-wrap" style="height: 300px">
 							  	<ion-content >
 							    <ion-list>
-							    <ion-item ng-repeat="drink in Drinks" ng-click="selectDish(dish)">
+							    <ion-item ng-repeat="dish in Drinks" ng-click="selectDish(dish)">
 							    	<a class="selected-item item-content">
-										{{drink.name}}
-										{{drink.price | currency : Currency}}
+										{{dish.name}}
+										{{dish.price | currency : Currency}}
 									</a>
 								</ion-item>
 								</ion-list>
