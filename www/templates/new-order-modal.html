@@ -11,14 +11,14 @@
 				
 				<div class="card" >
 					
-				  <div class="item item-text-wrap" style="height: 300px">
+				  <div class="item item-text-wrap" style="height: 400px">
 				  	
 
 			      <ion-tabs>
 			 
 						<ion-tab title="Appetizers">
 							 <!-- Tab 1 content -->
-							<div class="item item-text-wrap" style="height: 400px">
+							<div class="item item-text-wrap" style="height: 350px">
 							  		<ion-content >
 							    	<ion-list>
 							    	<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
@@ -41,7 +41,7 @@
 				 
 						<ion-tab title="Dessert">
 						 <!-- Tab 2 content -->
-							 <div class="item item-text-wrap" style="height: 300px">
+							 <div class="item item-text-wrap" style="height: 350px">
 							  	<ion-content >
 							    <ion-list>
 							    <ion-item ng-repeat="dish in Desserts" ng-click="selectDish(dish)">
@@ -95,7 +95,10 @@
 				<ion-item ng-hide="order.dishes.length">
 					<p>No dishes in your order</p>
 				</ion-item>
-
+				<div class="card" >
+					
+				  <div class="item item-text-wrap" style="height: 400px">
+				<ion-content>
 				<ion-list ng-show="order.dishes.length">
 					<ion-item ng-repeat="dish in order.dishes">
 						<span style = "float: left; margin-top: 5px;">
@@ -118,14 +121,18 @@
 							</button>
 		    			</span>
 					</ion-item>
-					<ion-item class = "item item-divider">
+					
+				</ion-list>
+			</ion-content>
+			</div>
+			</div>
+			<ion-item class = "item item-divider">
 						<strong style= "float: left;">Total: </strong>
 						<strong style="float: right;">{{valueOfOrder() | currency : Currency}}</strong>
-					</ion-item>
-				</ion-list>
-			</div>
-
-			
+			</ion-item>			
 		</div>
+		</div>
+		<br></br>
 	</ion-content>
+
 </div>
