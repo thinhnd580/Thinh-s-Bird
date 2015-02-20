@@ -6,10 +6,7 @@ sideMenuApp.config(function ($compileProvider) {
 
 sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-    // Ionic uses AngularUI Router which uses the concept of states
-    // Learn more here: https://github.com/angular-ui/ui-router
-    // Set up the various states which the app can be in.
-    // Each state's controller can be found in controllers.js
+    //Navigate
     $stateProvider
         .state('home',{
             url: '/home',
@@ -21,12 +18,6 @@ sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
             controller: 'OrderController',
             templateUrl: 'templates/order.html'
         })
-                        .state('order.tab1', {
-                            url: '/orderTab1',
-                            //controller: 'OrderTab1Controller',
-                            templateUrl: 'templates/order-tab1.html'
-                        })
-
         .state('menu', {
             url: '/menu',
             controller: 'MenuController',

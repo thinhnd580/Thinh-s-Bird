@@ -1,10 +1,7 @@
-angular.module('MainApp.controllers.order', [])
+var orderControllers = angular.module('MainApp.controllers.order', [])
 
-	.controller('OrderController', function ($scope,$ionicModal,$http, MenuService) {
-        $scope.people = [];
-
-    
-        $scope.navTitle = MenuService.get(1).text;
+	orderControllers.controller('OrderController', function ($scope, $ionicModal,$ionicSlideBoxDelegate ,CategoryService) {
+        $scope.navTitle = CategoryService.get(1).text;
         
         $scope.leftButtons = [{
             type: 'button-icon icon ion-navicon',
@@ -12,6 +9,7 @@ angular.module('MainApp.controllers.order', [])
                 $scope.sideMenuController.toggleLeft();
             }
         }];
+
         $scope.rightButtons = [{
             type: 'button-icon icon ion-gear-b',
             tap: function(e){
@@ -19,36 +17,84 @@ angular.module('MainApp.controllers.order', [])
             }
         }];
 
-
-        $ionicModal.fromTemplateUrl('templates/modal.html', function($ionicModal) {
-            $scope.modal = $ionicModal;}, {
-            // Use our scope for the scope of the modal to keep it simple
-            scope: $scope,
-            // The animation we want to use for the modal entrance
-            animation: 'slide-in-up'
-        });
-//         $ionicModal.config(['$stateProvider', '$urlRouterProvider',
-//     function($stateProvider, $urlRouterProvider) {
-//     // Ionic uses AngularUI Router which uses the concept of states
-//     // Learn more here: https://github.com/angular-ui/ui-router
-//     // Set up the various states which the app can be in.
-//     // Each state's controller can be found in controllers.js
-//     $stateProvider
-//         .state('order.tab1', {
-//                             url: '/orderTab1',
-//                             controller: 'OrderTab1Controller',
-//                             templateUrl: 'templates/order-tab1.html'
-//                         })
-//       }
-// ]);
+        $ionicModal.fromTemplateUrl('templates/new-order-modal.html', function($ionicModal) {
+                $scope.modal = $ionicModal;
+            },
+            {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }
+        );
+      
         $scope.openModal = function() {
-            
-            console.log('Opening Modal');
             $scope.modal.show();
-            
         };
+
         $scope.closeModal = function(){
             $scope.modal.hide();
-        }
+        };
+    });
+
+    orderControllers.controller('NewOrder', function($scope, $ionicSlideBoxDelegate, MenuFoodService){
+        $scope.Appetizers = MenuFoodService.appetizers();
+        $scope.MainCourses = MenuFoodService.mainCourses();
+        $scope.Desserts = MenuFoodService.desserts();
+        $scope.Drinks = MenuFoodService.drinks();
+        $scope.Currency = '$';
+        $scope.myActiveSlide = 1;
         
+        $scope.order = {
+            dishes: [],
+            quantity: [],
+            table: null,
+            date: null
+        };
+
+        $scope.selectDish = function(dish){
+            var index = $scope.order.dishes.indexOf(dish);
+
+            if (index >= 0){
+                if ($scope.order.quantity[index] != null)
+                    $scope.order.quantity[index]++;
+                else
+                    $scope.order.quantity[index] = 1;
+            }
+            else{
+                $scope.order.dishes.push(dish);
+                $scope.order.quantity.push(1);
+            }
+        };
+
+        $scope.removeDish = function(dish){
+            var index = $scope.order.dishes.indexOf(dish);
+            $scope.order.dishes.splice(index, 1);
+            $scope.order.quantity.splice(index, 1);
+        };
+
+        $scope.increaseQuantity = function(dish){
+            var index = $scope.order.dishes.indexOf(dish);
+            $scope.order.quantity[index]++;
+        };
+
+        $scope.valueOfOrder = function(){
+            var total = 0;
+            for (var i = 0; i<$scope.order.dishes.length ; i++){
+                total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
+            }
+            return total;
+        }
+
+        $scope.decreaseQuantity = function(dish){
+            var index = $scope.order.dishes.indexOf(dish);
+            $scope.order.quantity[index]--;
+            if ($scope.order.quantity[index] == 0)
+                $scope.removeDish(dish);
+        };
+
+        $scope.resetOrder = function(){
+            $scope.order.dishes = [];
+            $scope.order.quantity = [];
+            $scope.order.table = null;
+            $scope.order.date = null;
+        };
     });

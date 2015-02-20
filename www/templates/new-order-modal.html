@@ -1,0 +1,131 @@
+<div class="modal" ng-controller="NewOrder">
+	<ion-header class="bar bar-header bar-dark">
+		<a class="button icon ion-arrow-left-c button-clear button-light" ng-click="closeModal()"></a>
+ 		<h1 class="title">New order</h1>
+ 		<a class="button icon ion-checkmark-round button-clear button-light"></a>
+	</ion-header>
+
+	<ion-content class="has-header padding">
+		<div>
+			<div>
+				
+				<div class="card" >
+					
+				  <div class="item item-text-wrap" style="height: 300px">
+				  	
+
+			      <ion-tabs>
+			 
+						<ion-tab title="Appetizers">
+							 <!-- Tab 1 content -->
+							<div class="item item-text-wrap" style="height: 400px">
+							  		<ion-content >
+							    	<ion-list>
+							    	<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
+								    	<a class="selected-item item-content">
+											{{dish.name}}
+											{{dish.price | currency : Currency}}
+										</a>
+									</ion-item>
+									<!-- <div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
+										<a class="selected-item item-content">
+											{{dish.name}}
+											{{dish.price | currency : Currency}}
+										</a>
+									</div> -->
+									</ion-list>
+									</ion-content>
+						 	</div>
+		 
+						</ion-tab>
+				 
+						<ion-tab title="Dessert">
+						 <!-- Tab 2 content -->
+							 <div class="item item-text-wrap" style="height: 300px">
+							  	<ion-content >
+							    <ion-list>
+							    <ion-item ng-repeat="Dessert in Desserts" ng-click="selectDish(dish)">
+							    	<a class="selected-item item-content">
+										{{Dessert.name}}
+										{{Dessert.price | currency : Currency}}
+									</a>
+								</ion-item>
+								<!-- <div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
+									<a class="selected-item item-content">
+										{{dish.name}}
+										{{dish.price | currency : Currency}}
+									</a>
+								</div> -->
+								</ion-list>
+								</ion-content>
+							  </div>
+						</ion-tab>
+				 
+				 		<ion-tab title="Drinks">
+				 			<!-- Tab 3 content -->
+							 <div class="item item-text-wrap" style="height: 300px">
+							  	<ion-content >
+							    <ion-list>
+							    <ion-item ng-repeat="drink in Drinks" ng-click="selectDish(dish)">
+							    	<a class="selected-item item-content">
+										{{drink.name}}
+										{{drink.price | currency : Currency}}
+									</a>
+								</ion-item>
+								</ion-list>
+								</ion-content>
+							  </div>
+	 					</ion-tab>
+ 
+					</ion-tabs>
+				  </div>
+				  
+				</div>
+				
+			</div>
+
+
+		<!-- THis is other -->
+			<div>
+				<ion-item class="item item-divider">
+					<strong>New Order:</strong>
+					<button class="button button-outline" style="float: right;" ng-click="resetOrder()">Reset</button>
+				</ion-item>
+
+				<ion-item ng-hide="order.dishes.length">
+					<p>No dishes in your order</p>
+				</ion-item>
+
+				<ion-list ng-show="order.dishes.length">
+					<ion-item ng-repeat="dish in order.dishes">
+						<span style = "float: left; margin-top: 5px;">
+							{{dish.name}}
+							{{dish.price | currency : Currency}}
+						</span>
+
+		    			<span style = "float: right;">
+		    				<span>
+		    					Quantity: <input type="text" style="border: 1px solid light-grey; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
+		    				</span>
+			    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
+				    			<i class="icon ion-plus-round"></i>
+				    		</button>
+				    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
+				    			<i class="icon ion-minus"></i>
+				    		</button>
+				    		<button class="button button-small button-clear" ng-click="removeDish(dish)">
+								<i class="icon ion-close-round"></i>
+							</button>
+		    			</span>
+					</ion-item>
+					<ion-item class = "item item-divider">
+						<strong style= "float: left;">Total: </strong>
+						<strong style="float: right;">{{valueOfOrder() | currency : Currency}}</strong>
+					</ion-item>
+				</ion-list>
+			</div>
+
+			
+		</div>
+	</ion-content>
+</div>
