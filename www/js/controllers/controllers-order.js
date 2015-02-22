@@ -22,11 +22,10 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
     });
 
     orderControllers.controller('NewOrder', function($scope, MenuFoodService){
-        // $scope.Appetizers = MenuFoodService.appetizers();
-        // $scope.MainCourses = MenuFoodService.mainCourses();
-        // $scope.Desserts = MenuFoodService.desserts();
-        // $scope.Drinks = MenuFoodService.drinks();
-
+        $scope.Appetizers = MenuFoodService.appetizers();
+        $scope.MainCourses = MenuFoodService.mainCourses();
+        $scope.Desserts = MenuFoodService.desserts();
+        $scope.Drinks = MenuFoodService.drinks();
         $scope.Currency = '$';
 
         $scope.order = {
@@ -97,8 +96,7 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
     });
 
     orderControllers.controller('MenuFoodTabController', function($scope, MenuFoodService){
-        $scope.typeOfFood = [
-        {
+        $scope.typeOfFood = [{
             'name' : 'Appetizer',
             'content' : MenuFoodService.appetizers()
         },{

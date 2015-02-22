@@ -9,22 +9,24 @@
 		<div ng-controller="SlideController as slide">
 			<ion-slide-box>
 				<ion-slide>
-				  	<div class="box" ng-controller="MenuFoodTabController as menu">
-				  		<div class="list">
-				  			<a ng-repeat="food in menu.typeOfFood" class="list-element" ng-click="menu.setTab(food.name)" ng-class="{active: menu.isSet(food.name)}">{{x}}</a>
+				  	<div class="box">
+				  		<div ng-controller="MenuFoodTabController">
+					  		<div class="list">
+					  			<a ng-repeat="food in typeOfFood" class="list-element" ng-click="setTab(food.name)" ng-class="{active: isSet(food.name)}">{{food.name}}</a>
+					  		</div>
+					  		<div class="list" ng-repeat="food in typeOfFood" ng-show="isSet(food.name)" style="height: 200px">
+					  			<ion-item ng-repeat="dish in food.content" ng-click="selectDish(dish)">
+					  				{{dish.name}}
+					  				{{dish.price}}
+					  			</ion-item>
+					  		</div>
 				  		</div>
-				  		<div class="list" ng-repeat="food in menu.typeOfFood" ng-show="menu.isSet(food.name)" style="height: 200px">
-				  			<ion-item ng-repeat="dish in food.content" ng-click="selectDish(dish)">
-				  				{{dish.name}}
-				  				{{dish.price}}
-				  			</ion-item>
-				  		</div>
-				    	<button class="button button-positive" ng-click="slide.nextSlide()">Next slide!</button>
+				    	<button class="button button-positive" ng-click="nextSlide()">Next slide!</button>
 				  	</div>
 				</ion-slide>
 				<ion-slide>
 					<div class="box">
-						<button class="button button-positive" ng-click="slide.prevSlide()">Previous slide!</button>
+						<button class="button button-positive" ng-click="prevSlide()">Previous slide!</button>
 					</div>
 				</ion-slide>
 			</ion-slide-box>
@@ -44,15 +46,16 @@
 						</ion-item>
 						<ion-list ng-show="order.dishes.length">
 							<ion-item ng-repeat="dish in order.dishes">
-								<span style = "float: left; margin-top: 5px;">
+								<span style = "float: left; margin-top: 5px; width: 25%">
 									{{dish.name}}
+								</span style = "float: left; width: 25%">
+								<span>
 									{{dish.price | currency : Currency}}
 								</span>
-
-				    			<span style = "float: right;">
-				    				<span>
-				    					Quantity: <input type="text" style="border: 1px solid light-grey; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
-				    				</span>
+								<span style = "float: left; width: 25%">
+			    					<input type="text" style="border: 1px solid; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
+			    				</span>
+				    			<span style = "float: right; width: 25%">
 					    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
 						    			<i class="icon ion-plus-round"></i>
 						    		</button>
