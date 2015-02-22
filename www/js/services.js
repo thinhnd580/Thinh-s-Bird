@@ -37,25 +37,7 @@ var allServices = angular.module('MainApp.services', [])
         "id" : "a3",
         "name": "a3",
         "price": "2.5"
-      },
-       {
-        "id" : "a4",
-        "name": "a4",
-        "price": "2"
-      },
-       {
-        "id" : "a5",
-        "name": "a5",
-        "price": "2"
-      },
-       {
-        "id" : "a6",
-        "name": "a6",
-        "price": "2"
-      },
-
-
-      ];
+      }];
 
     var Main_Courses = [
       {

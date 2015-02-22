@@ -6,133 +6,113 @@
 	</ion-header>
 
 	<ion-content class="has-header padding">
+		<div ng-controller="SlideController">
+			<ion-slide-box>
+				<ion-slide>
+				  	<div class="box">
+				  		<!-- <div class="item item-text-wrap" style="height: 300px;">
+				      		<ion-tabs>
+				      			<ion-tab title="Appetizers">
+									<div class="item item-text-wrap" style="height: 350px">
+								  		<ion-content >
+									    	<ion-list>
+									    	<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
+										    	<a class="selected-item item-content">
+													{{dish.name}}
+													{{dish.price | currency : Currency}}
+												</a>
+											</ion-item>
+											</ion-list>
+										</ion-content>
+							 		</div>
+								</ion-tab>
+					 
+								<ion-tab title="Dessert">
+								 	<div class="item item-text-wrap" style="height: 350px">
+								  		<ion-content>
+								    		<ion-list>
+								    			<ion-item ng-repeat="dish in Desserts" ng-click="selectDish(dish)">
+								    				<a class="selected-item item-content">
+														{{dish.name}}
+														{{dish.price | currency : Currency}}
+													</a>
+												</ion-item>
+											</ion-list>
+										</ion-content>
+								  	</div>
+								</ion-tab>
+					 
+					 			<ion-tab title="Drinks">
+								 	<div class="item item-text-wrap" style="height: 300px">
+									  	<ion-content >
+										    <ion-list>
+											    <ion-item ng-repeat="dish in Drinks" ng-click="selectDish(dish)">
+											    	<a class="selected-item item-content">
+														{{dish.name}}
+														{{dish.price | currency : Currency}}
+													</a>
+												</ion-item>
+											</ion-list>
+										</ion-content>
+								  </div>
+		 						</ion-tab>
+							</ion-tabs>
+				  		</div> -->
+				    	<button class="button button-positive" ng-click="nextSlide()">Next slide!</button>
+				  	</div>
+				</ion-slide>
+				<ion-slide>
+					<div class="box">
+						<button class="button button-positive" ng-click="prevSlide()">Previous slide!</button>
+					</div>
+				</ion-slide>
+			</ion-slide-box>
+		</div>
+
 		<div>
-			<div>
-				
-				<div class="card" >
-					
-				  <div class="item item-text-wrap" style="height: 400px">
-				  	
+			<ion-item class="item item-divider">
+				<strong>Table: {{order.table}}</strong>
+				<button class="button button-outline" style="float: right;" ng-click="resetOrder()">Reset</button>
+			</ion-item>
 
-			      <ion-tabs>
-			 
-						<ion-tab title="Appetizers">
-							 <!-- Tab 1 content -->
-							<div class="item item-text-wrap" style="height: 350px">
-							  		<ion-content >
-							    	<ion-list>
-							    	<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
-								    	<a class="selected-item item-content">
-											{{dish.name}}
-											{{dish.price | currency : Currency}}
-										</a>
-									</ion-item>
-									<!-- <div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
-										<a class="selected-item item-content">
-											{{dish.name}}
-											{{dish.price | currency : Currency}}
-										</a>
-									</div> -->
-									</ion-list>
-									</ion-content>
-						 	</div>
-		 
-						</ion-tab>
-				 
-						<ion-tab title="Dessert">
-						 <!-- Tab 2 content -->
-							 <div class="item item-text-wrap" style="height: 350px">
-							  	<ion-content >
-							    <ion-list>
-							    <ion-item ng-repeat="dish in Desserts" ng-click="selectDish(dish)">
-							    	<a class="selected-item item-content">
-										{{dish.name}}
-										{{dish.price | currency : Currency}}
-									</a>
-								</ion-item>
-								<!-- <div class="item" ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
-									<a class="selected-item item-content">
-										{{dish.name}}
-										{{dish.price | currency : Currency}}
-									</a>
-								</div> -->
-								</ion-list>
-								</ion-content>
-							  </div>
-						</ion-tab>
-				 
-				 		<ion-tab title="Drinks">
-				 			<!-- Tab 3 content -->
-							 <div class="item item-text-wrap" style="height: 300px">
-							  	<ion-content >
-							    <ion-list>
-							    <ion-item ng-repeat="dish in Drinks" ng-click="selectDish(dish)">
-							    	<a class="selected-item item-content">
-										{{dish.name}}
-										{{dish.price | currency : Currency}}
-									</a>
-								</ion-item>
-								</ion-list>
-								</ion-content>
-							  </div>
-	 					</ion-tab>
- 
-					</ion-tabs>
-				  </div>
-				  
+			<div class="card" >
+				<div class="item item-text-wrap" style="height: 400px">
+					<ion-content>
+						<ion-item ng-hide="order.dishes.length">
+							<p>No dishes in your order</p>
+						</ion-item>
+						<ion-list ng-show="order.dishes.length">
+							<ion-item ng-repeat="dish in order.dishes">
+								<span style = "float: left; margin-top: 5px;">
+									{{dish.name}}
+									{{dish.price | currency : Currency}}
+								</span>
+
+				    			<span style = "float: right;">
+				    				<span>
+				    					Quantity: <input type="text" style="border: 1px solid light-grey; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
+				    				</span>
+					    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
+						    			<i class="icon ion-plus-round"></i>
+						    		</button>
+						    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
+						    			<i class="icon ion-minus"></i>
+						    		</button>
+						    		<button class="button button-small button-clear" ng-click="removeDish(dish)">
+										<i class="icon ion-close-round"></i>
+									</button>
+				    			</span>
+							</ion-item>
+							
+						</ion-list>
+					</ion-content>
 				</div>
-				
-			</div>
-
-
-		<!-- THis is other -->
-			<div>
-				<ion-item class="item item-divider">
-					<strong>New Order:</strong>
-					<button class="button button-outline" style="float: right;" ng-click="resetOrder()">Reset</button>
-				</ion-item>
-
-				<ion-item ng-hide="order.dishes.length">
-					<p>No dishes in your order</p>
-				</ion-item>
-				<div class="card" >
-					
-				  <div class="item item-text-wrap" style="height: 400px">
-				<ion-content>
-				<ion-list ng-show="order.dishes.length">
-					<ion-item ng-repeat="dish in order.dishes">
-						<span style = "float: left; margin-top: 5px;">
-							{{dish.name}}
-							{{dish.price | currency : Currency}}
-						</span>
-
-		    			<span style = "float: right;">
-		    				<span>
-		    					Quantity: <input type="text" style="border: 1px solid light-grey; color: red; font-weight: 200;" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
-		    				</span>
-			    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)">
-				    			<i class="icon ion-plus-round"></i>
-				    		</button>
-				    		<button class="button button-small button-assertive" ng-click="decreaseQuantity(dish)">
-				    			<i class="icon ion-minus"></i>
-				    		</button>
-				    		<button class="button button-small button-clear" ng-click="removeDish(dish)">
-								<i class="icon ion-close-round"></i>
-							</button>
-		    			</span>
-					</ion-item>
-					
-				</ion-list>
-			</ion-content>
-			</div>
 			</div>
 			<ion-item class = "item item-divider">
 						<strong style= "float: left;">Total: </strong>
 						<strong style="float: right;">{{valueOfOrder() | currency : Currency}}</strong>
 			</ion-item>			
 		</div>
-		</div>
-		<br></br>
 	</ion-content>
 
 </div>

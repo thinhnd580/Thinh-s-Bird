@@ -1,21 +1,7 @@
 var orderControllers = angular.module('MainApp.controllers.order', [])
 
-	orderControllers.controller('OrderController', function ($scope, $ionicModal,$ionicSlideBoxDelegate ,CategoryService) {
+	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
         $scope.navTitle = CategoryService.get(1).text;
-        
-        $scope.leftButtons = [{
-            type: 'button-icon icon ion-navicon',
-            tap: function(e) {
-                $scope.sideMenuController.toggleLeft();
-            }
-        }];
-
-        $scope.rightButtons = [{
-            type: 'button-icon icon ion-gear-b',
-            tap: function(e){
-                $scope.sideMenuController.toggleRight();
-            }
-        }];
 
         $ionicModal.fromTemplateUrl('templates/new-order-modal.html', function($ionicModal) {
                 $scope.modal = $ionicModal;
@@ -35,14 +21,13 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         };
     });
 
-    orderControllers.controller('NewOrder', function($scope, $ionicSlideBoxDelegate, MenuFoodService){
+    orderControllers.controller('NewOrder', function($scope, MenuFoodService){
         $scope.Appetizers = MenuFoodService.appetizers();
         $scope.MainCourses = MenuFoodService.mainCourses();
         $scope.Desserts = MenuFoodService.desserts();
         $scope.Drinks = MenuFoodService.drinks();
         $scope.Currency = '$';
-        $scope.myActiveSlide = 1;
-        
+
         $scope.order = {
             dishes: [],
             quantity: [],
@@ -79,7 +64,8 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
         $scope.valueOfOrder = function(){
             var total = 0;
             for (var i = 0; i<$scope.order.dishes.length ; i++){
-                total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
+                if ($scope.order.quantity[i] != null)
+                    total += parseFloat($scope.order.dishes[i].price)*parseInt($scope.order.quantity[i]);
             }
             return total;
         }
@@ -97,4 +83,14 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
             $scope.order.table = null;
             $scope.order.date = null;
         };
+    });
+
+    orderControllers.controller('SlideController', function($scope, $ionicSlideBoxDelegate){
+        $scope.nextSlide = function() {
+            $ionicSlideBoxDelegate.next();
+        }
+
+        $scope.prevSlide = function(){
+            $ionicSlideBoxDelegate.previous();
+        }
     });
