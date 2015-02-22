@@ -6,69 +6,30 @@
 	</ion-header>
 
 	<ion-content class="has-header padding">
-		<div ng-controller="SlideController">
+		<div ng-controller="SlideController as slide">
 			<ion-slide-box>
 				<ion-slide>
-				  	<div class="box">
-				  		<!-- <div class="item item-text-wrap" style="height: 300px;">
-				      		<ion-tabs>
-				      			<ion-tab title="Appetizers">
-									<div class="item item-text-wrap" style="height: 350px">
-								  		<ion-content >
-									    	<ion-list>
-									    	<ion-item ng-repeat="dish in Appetizers" ng-click="selectDish(dish)">
-										    	<a class="selected-item item-content">
-													{{dish.name}}
-													{{dish.price | currency : Currency}}
-												</a>
-											</ion-item>
-											</ion-list>
-										</ion-content>
-							 		</div>
-								</ion-tab>
-					 
-								<ion-tab title="Dessert">
-								 	<div class="item item-text-wrap" style="height: 350px">
-								  		<ion-content>
-								    		<ion-list>
-								    			<ion-item ng-repeat="dish in Desserts" ng-click="selectDish(dish)">
-								    				<a class="selected-item item-content">
-														{{dish.name}}
-														{{dish.price | currency : Currency}}
-													</a>
-												</ion-item>
-											</ion-list>
-										</ion-content>
-								  	</div>
-								</ion-tab>
-					 
-					 			<ion-tab title="Drinks">
-								 	<div class="item item-text-wrap" style="height: 300px">
-									  	<ion-content >
-										    <ion-list>
-											    <ion-item ng-repeat="dish in Drinks" ng-click="selectDish(dish)">
-											    	<a class="selected-item item-content">
-														{{dish.name}}
-														{{dish.price | currency : Currency}}
-													</a>
-												</ion-item>
-											</ion-list>
-										</ion-content>
-								  </div>
-		 						</ion-tab>
-							</ion-tabs>
-				  		</div> -->
-				    	<button class="button button-positive" ng-click="nextSlide()">Next slide!</button>
+				  	<div class="box" ng-controller="MenuFoodTabController as menu">
+				  		<div class="list">
+				  			<a ng-repeat="food in menu.typeOfFood" class="list-element" ng-click="menu.setTab(food.name)" ng-class="{active: menu.isSet(food.name)}">{{x}}</a>
+				  		</div>
+				  		<div class="list" ng-repeat="food in menu.typeOfFood" ng-show="menu.isSet(food.name)" style="height: 200px">
+				  			<ion-item ng-repeat="dish in food.content" ng-click="selectDish(dish)">
+				  				{{dish.name}}
+				  				{{dish.price}}
+				  			</ion-item>
+				  		</div>
+				    	<button class="button button-positive" ng-click="slide.nextSlide()">Next slide!</button>
 				  	</div>
 				</ion-slide>
 				<ion-slide>
 					<div class="box">
-						<button class="button button-positive" ng-click="prevSlide()">Previous slide!</button>
+						<button class="button button-positive" ng-click="slide.prevSlide()">Previous slide!</button>
 					</div>
 				</ion-slide>
 			</ion-slide-box>
 		</div>
-
+		<br/>
 		<div>
 			<ion-item class="item item-divider">
 				<strong>Table: {{order.table}}</strong>
@@ -76,7 +37,7 @@
 			</ion-item>
 
 			<div class="card" >
-				<div class="item item-text-wrap" style="height: 400px">
+				<div class="item item-text-wrap" style="height: 250px">
 					<ion-content>
 						<ion-item ng-hide="order.dishes.length">
 							<p>No dishes in your order</p>
