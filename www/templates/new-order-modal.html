@@ -1,7 +1,7 @@
 <div class="modal" ng-controller="NewOrder">
 	<ion-header class="bar bar-header bar-dark">
 		<a class="button icon ion-arrow-left-c button-clear button-light" ng-click="closeModal()"></a>
- 		<h1 class="title">New order</h1>
+ 		<h1 class="title">{{restaurant}}</h1>
  		<a class="button icon ion-checkmark-round button-clear button-light"></a>
 	</ion-header>
 
@@ -16,14 +16,15 @@
 					  		</div>
 					  		
 					  		<ion-list ng-repeat="food in typeOfFood" ng-show="isSet(food.name)" >
-						  		<ion-scroll direction="y" style="width: 100%; height: 180px">
-						  			<ion-item ng-repeat="dish in food.content" ng-click="selectDish(dish)">
+						  		<ion-scroll direction="y" style="width: 100%; height: 160px;">
+						  			<ion-item ng-repeat="dish in food.content" ng-click="selectDish(dish)" style="margin : -1px 0px 0px 0px;">
 						  				<span style="float: left;">{{dish.name}}</span>
 						  				<span style="float: right;">{{dish.price | currency: Currency}}</span>
 						  			</ion-item>
 						  		</ion-scroll>
 					  		</ion-list>
 				  		</div>
+				  		<br/>
 				    	<button class="button button-positive" ng-click="nextSlide()">Next slide!</button>
 				  	</div>
 				</ion-slide>
@@ -50,17 +51,17 @@
 				<ion-item ng-hide="order.dishes.length">
 					<p>No dishes in your order</p>
 				</ion-item>
-				<ion-scroll direction = "y" style="width: 100%; height: 200px;">
+				<ion-scroll direction = "y" style="width: 100%; height: 100%;">
 					<div class="list" ng-show="order.dishes.length">
-						<ion-item ng-repeat="dish in order.dishes">
-							<span style = "float: left; margin-top: 5px; width: 25%;">
+						<ion-item ng-repeat="dish in order.dishes" style="margin : -1px 0px 0px 0px;">
+							<span style = "float: left; margin-top: 5px; width: 30%;">
 								{{dish.name}}
 							</span>
-							<span style = "float: left; margin-top: 5px; width: 20%; text-align: center;">
+							<span style = "float: left; margin-top: 5px; width: 25%; text-align: center;">
 								{{dish.price | currency : Currency}}
 							</span>
-							<span class="item-divider-td">
-		    					<input type="text" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} required>
+							<span style = "float: left; width: 15%; text-align: center;">
+		    					<input id="input-quantity" type="text" required="required" numbers-only="numbers-only" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} maxlength="2">
 		    				</span>
 			    			<span class="item-divider-td">
 				    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)"
@@ -71,7 +72,7 @@
 					    		style="float: left;">
 					    			<i class="icon ion-minus"></i>
 					    		</button>
-					    		<button class="button button-small button-clear icon ion-close-round" ng-click="removeDish(dish)"
+					    		<button class="button button-small button-outline icon ion-close-round" ng-click="removeDish(dish)"
 					    		style="float: left;"></button>
 			    			</span>
 						</ion-item>
