@@ -28,8 +28,16 @@
 				    	<button class="button button-positive" ng-click="nextSlide()">Next slide!</button>
 				  	</div>
 				</ion-slide>
+
 				<ion-slide>
 					<div class="box">
+						<div>
+							<input type="text" placeholder="Select Date" style="width: 60%; float: left; border-right: 3px solid #FFFFFF" ng-model="order.date" datepicker-popup="dd-MM-yyyy" datepicker-options = "dateOptions" is-open="true" datepicker-disable = "disable(date, mode)" close-text="Close" ng-required="true" />
+							<input type="text" placeholder="Select Time" style="width: 40%; border-left: 3px solid #FFFFFF" ng-model="order.time" ng-required="true"/>
+						</div>
+						<datepicker ng-model="order.date" min-date="minDate" show-weeks="true" style="float: left;"></datepicker>
+						<!-- <timepicker ng-model="order.time" style="float: left;"></timepicker> -->
+						<br/>
 						<button class="button button-positive" ng-click="prevSlide()">Previous slide!</button>
 					</div>
 				</ion-slide>
@@ -41,19 +49,21 @@
 				<span style="float: left;">
 					<strong>Table: {{order.table}}</strong>
 					<br/>
-					<strong>Date: {{order.date}}</strong>
+					<strong>Time: </strong>
+					<span style="color: green;">{{order.date | date: 'dd-MM-yyyy'}}</span>
+					<span style="color: red;">{{order.time | date: 'hh:mm a'}}</span>
 				</span>
 				
 				<button class="button button-outline" style="float: right; padding: 5px;" ng-click="resetOrder()">Reset</button>
 			</ion-item>
 
-			<div style="height: 230px;">
+			<div style="height: 235px;">
 				<ion-item ng-hide="order.dishes.length">
 					<p>No dishes in your order</p>
 				</ion-item>
 				<ion-scroll direction = "y" style="width: 100%; height: 100%;">
 					<div class="list" ng-show="order.dishes.length">
-						<ion-item ng-repeat="dish in order.dishes" style="margin : -1px 0px 0px 0px;">
+						<ion-item ng-repeat="dish in order.dishes | orderBy: 'name' : false" style="margin : -1px 0px 0px 0px;">
 							<span style = "float: left; margin-top: 5px; width: 30%;">
 								{{dish.name}}
 							</span>
@@ -61,7 +71,7 @@
 								{{dish.price | currency : Currency}}
 							</span>
 							<span style = "float: left; width: 15%; text-align: center;">
-		    					<input id="input-quantity" type="text" required="required" numbers-only="numbers-only" ng-model="order.quantity[$index]" placeholder={{order.quantity[$index]}} maxlength="2">
+		    					<input id="input-quantity" type="text" required="required" numbers-only="numbers-only" ng-model="order.quantity[order.dishes.indexOf(dish)]" placeholder="{{order.quantity[order.dishes.indexOf(dish)]}}" maxlength="2"/>
 		    				</span>
 			    			<span class="item-divider-td">
 				    			<button class="button button-small button-positive" ng-click="increaseQuantity(dish)"
@@ -82,7 +92,7 @@
 			<ion-item class = "item item-divider">
 				<strong style= "float: left;">Total: </strong>
 				<strong style="float: right; color: red;">{{valueOfOrder() | currency : Currency}}</strong>
-			</ion-item>			
+			</ion-item>
 		</div>
 	</ion-content>
 

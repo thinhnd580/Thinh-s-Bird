@@ -1,4 +1,4 @@
-var orderControllers = angular.module('MainApp.controllers.order', [])
+var orderControllers = angular.module('MainApp.controllers.order', ['ui.bootstrap']);
 
 	orderControllers.controller('OrderController', function ($scope, $ionicModal, CategoryService) {
         $scope.navTitle = CategoryService.get(1).text;
@@ -29,7 +29,8 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
             dishes: [],
             quantity: [],
             table: null,
-            date: null
+            date: null,
+            time: null
         };
 
         $scope.selectDish = function(dish){
@@ -79,6 +80,26 @@ var orderControllers = angular.module('MainApp.controllers.order', [])
             $scope.order.quantity = [];
             $scope.order.table = null;
             $scope.order.date = null;
+            $scope.order.time = null;
+        };
+
+        $scope.clear = function () {
+            $scope.order.date = null;
+        };
+
+        // Disable weekend selection
+        $scope.disabled = function(date, mode) {
+            return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+        };
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+        };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
         };
     });
 
